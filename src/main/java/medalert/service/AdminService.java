@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import medalert.model.Admin;
@@ -40,12 +39,12 @@ public class AdminService {
         return adminRepository.save(admin);
     }
 
-    public List<Admin> findAdminBySpecialite(String specialite){
-        return adminRepository.findBySpecialite(specialite);
+    public List<Admin> findAdminBySpeciality(String speciality){
+        return adminRepository.findBySpecialite(speciality);
     }
 
-    public List<Admin> findAdminByStatut(String statut){
-        return adminRepository.findByStatut(statut);
+    public List<Admin> findAdminByStatus(String status){
+        return adminRepository.findByStatus(status);
     }
 
     public Optional<Admin> verifyAdminCredentials(String identifiant, String password) {
