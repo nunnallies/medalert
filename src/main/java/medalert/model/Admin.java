@@ -13,9 +13,9 @@ public class Admin {
     @Column(name = "mdp")
     private String password;
     @Column(name="statut")
-    private String statut;
+    private String status;
     @Column(name="specialite")
-    private String specialite;
+    private String speciality;
     @Column(name="identifiant")
     private String identifiant;
     @Id
@@ -23,11 +23,11 @@ public class Admin {
     private int adminid;
 
     public Admin(){}
-    public Admin(String name, String password, String statut, String specialite, String identifiant) {
+    public Admin(String name, String password, String status, String speciality, String identifiant) {
         this.name = name;
         this.password = password;
-        this.statut = statut;
-        this.specialite = specialite;
+        this.status = status;
+        this.speciality = speciality;
         this.identifiant = identifiant;
     }
 

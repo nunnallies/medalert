@@ -12,18 +12,24 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientid;
-    private String nom;
-    private String prenom;
-    private Date datedenaissance;
+    @Column(name = "nom")
+    private String lastname;
+    @Column(name = "prenom")
+    private String name;
+    @Column(name = "datedenaissance")
+    private Date birthday;
+    @Column(name = "service")
     private String service;
+    @Column(name = "mail")
     private String mail;
+    @Column(name = "adminid")
     private Integer adminid;
 
     public Patient() {}
-    public Patient(String name, String prenom, Date datedenaissance, String service, String mail, Integer adminid) {
-        this.nom = name;
-        this.prenom = prenom;
-        this.datedenaissance = datedenaissance;
+    public Patient(String lastname, String name, Date birthday, String service, String mail, Integer adminid) {
+        this.lastname = lastname;
+        this.name = name;
+        this.birthday = birthday;
         this.service = service;
         this.mail = mail;
         this.adminid = adminid;

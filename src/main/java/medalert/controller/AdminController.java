@@ -1,4 +1,4 @@
-package medalert.controlleur;
+package medalert.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import medalert.model.Admin;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminControlleur {
+public class AdminController {
 
     @Autowired
     private AdminService adminService;

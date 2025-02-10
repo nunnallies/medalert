@@ -3,10 +3,10 @@
 Logique :
 Un admin a un ou plusieurs patient
 Un patient est pris en charge par un seul admin
-Un patient a une ou plusieurs constantes (pour dresser un dashboard/historique/evolution des constantes)
-Un admin peut generer un ou plusieurs rapport pour un seul patient
-Un patient peut avoir un ou plusieurs rapport
-Les constantes sont mesurées par un seul admin qui peut être différent de celui qui prends en charge le patient
+Un patient a une ou plusieurs vitalSigns (pour dresser un dashboard/historique/evolution des vitalSigns)
+Un admin peut generer un ou plusieurs report pour un seul patient
+Un patient peut avoir un ou plusieurs report
+Les vitalSigns sont mesurées par un seul admin qui peut être différent de celui qui prends en charge le patient
 #------------------------------------------------------------
 
 
