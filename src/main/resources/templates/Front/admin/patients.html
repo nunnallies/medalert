@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Patients</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Liste des Patients</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Âge</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Boucle sur la liste de patients et affiche les informations -->
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.patientid}"></td>
+            <td th:text="${patient.nom}"></td>
+            <td th:text="${patient.prenom}"></td>
+            <td th:text="${patient.datedenaissance}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
