@@ -1,0 +1,167 @@
+body,html{
+    margin: 0;
+    padding: 0;
+
+}
+#iconeheader{
+    width: 15%;
+    height: auto;
+}
+.table4{
+    border-collapse: collapse;
+    width: 100%;
+    color: #282828;
+    font-size: 20px;
+    text-align: center;
+    margin-top:150px;
+    padding: 0;
+}
+th{
+    background-color: #032f22;
+    color: white;
+    width: auto;
+}
+tr:nth-child(even){
+    background-color: #57CBAB;
+    width: auto;
+}
+
+h1{
+    position: absolute;
+    padding: 3px;
+    float: left;
+    margin-left: 2%;
+    margin-top: 10px;
+    color: #032f22;
+}
+
+span{
+    color: white;
+
+}
+ul{
+    width: auto;
+    float: right;
+    margin-top: 8px;
+
+}
+
+li{
+    display: inline-block;
+    padding: 15px 15px;
+
+}
+a{
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2vw;
+
+}
+
+
+body{
+    font-size: 120%;
+    background: white;
+
+
+}
+
+
+.headerA{
+    width: 30%;
+    margin:60px 20px 0px 50px;
+    color: white;
+    background: #57CBAB;
+    text-align: center;
+    border: 2px solid #57CBAB;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px ;
+    padding: 20px;
+}
+
+
+form{
+
+    width: 30%;
+    margin:0px 20px 0px 50px;
+    padding: 20px;
+    border: 1px solid #57CBAB;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+
+}
+
+
+.input-groupA{
+    margin: 10px 0px 10px 0px;
+}
+
+.input-groupA label{
+    display: block;
+    text-align: left;
+    margin: 3px;
+
+}
+
+.input-groupA input{
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border:2px solid grey;
+
+}
+
+.btnA{
+
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #57CBAB;
+    border:none;
+    border-radius: 5px;
+
+}
+
+.liste{
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border:1px solid grey;}
+
+.delete{
+
+    width: 30%;
+    margin:0px 20px 0px 900px;
+    padding: 20px;
+    border: 2px solid #57CBAB;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.headerAD{
+    width: 30%;
+    margin:-630px 20px 0px 900px;
+    color: white;
+    background: #57CBAB;
+    text-align: center;
+    border: 2px solid #57CBAB;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px ;
+    padding: 20px;
+}
+
+
+.btnAx{
+
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #57CBAB;
+    border:none;
+    border-radius: 5px;
+}

@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Integer> {
 
-    List<Admin> findBySpecialite(String speciality);
+    List<Admin> findBySpeciality(String speciality);
     List<Admin> findByStatus(String status);
     Optional<Admin> findByIdentifiantAndPassword(String identifiant, String password);
 }

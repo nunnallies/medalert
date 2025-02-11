@@ -22,12 +22,13 @@
         <!-- Boucle sur la liste de patients et affiche les informations -->
         <tr th:each="patient : ${patients}">
             <td th:text="${patient.patientid}"></td>
-            <td th:text="${patient.nom}"></td>
-            <td th:text="${patient.prenom}"></td>
-            <td th:text="${patient.datedenaissance}"></td>
+            <td th:text="${patient.lastname}"></td>
+            <td th:text="${patient.name}"></td>
+            <td th:text="${patient.birthday}"></td>
         </tr>
         </tbody>
     </table>
+    <a href="AjoutPatient" class="btn btn-primary">Ajouter</a>
 </div>
 
 </body>

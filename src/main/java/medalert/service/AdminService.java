@@ -40,7 +40,7 @@ public class AdminService {
     }
 
     public List<Admin> findAdminBySpeciality(String speciality){
-        return adminRepository.findBySpecialite(speciality);
+        return adminRepository.findBySpeciality(speciality);
     }
 
     public List<Admin> findAdminByStatus(String status){

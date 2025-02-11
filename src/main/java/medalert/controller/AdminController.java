@@ -38,4 +38,9 @@ public class AdminController {
             return "Front/connexion";  // Reste sur la même page en affichant l'erreur
         }
     }
+
+    @GetMapping("/AjoutPatient")
+    public String ShowPatientRegistrationForm() {
+        return "Front/admin/AjoutPatient";
+    }
 }
