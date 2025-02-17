@@ -21,12 +21,11 @@
         </thead>
         <tbody>
 
-        <tr th:each="patient : ${patients}">
-            <td th:text="${patient.patientid}"></td>
-            <td th:text="${patient.lastname}"></td>
-            <td th:text="${patient.name}"></td>
-            <td th:text="${patient.birthday}"></td>
-            <td><a th:href="@{/admin/patient-details(id=${patient.patientid})}">Consulter</td>
+        <tr th:each="admin : ${admins}">
+            <td th:text="${admin.name}"></td>
+            <td th:text="${admin.status}"></td>
+            <td th:text="${admin.speciality}"></td>
+<!--            <td><a th:href="@{/admin/patient-details(id=${patient.patientid})}">Consulter</td>-->
         </tr>
         </tbody>
     </table>
