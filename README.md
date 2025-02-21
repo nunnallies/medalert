@@ -1,5 +1,5 @@
 
-Medalert
+Medalert ![Status](https://img.shields.io/badge/status-WIP-yellow)
 
 Projet dans le cadre d'une candidature pour un poste de developpeuse java sur la plateforme MEDITWIN. 
 
