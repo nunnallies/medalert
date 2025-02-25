@@ -22,24 +22,26 @@ public class VitalSigns {
     private Date measurementdate;
     private float temperature;
     private float SpO2;
-    private float pouls;
-    private float glycemie;
-    private float imc;
-    private float albumine;
+    private float pulse;
+    private float bloodGlucose;
+    private float bmi;
+    private float albumin;
     private Integer adminid;
     public VitalSigns() {}
 
-    public VitalSigns(Integer adminid, Integer patientid, Date measurementdate, float temperature, float SpO2, float pouls,
-                      float glycemie, float imc, float albumine) {
+    public VitalSigns(Integer adminid, Integer patientid, Date measurementdate, float temperature, float SpO2, float pulse,
+                      float bloodGlucose, float bmi, float albumin) {
         this.adminid = adminid;
         this.patientid = patientid;
         this.measurementdate = measurementdate;
         this.temperature = temperature;
         this.SpO2 = SpO2;
-        this.pouls = pouls;
-        this.glycemie = glycemie;
-        this.imc = imc;
-        this.albumine = albumine;
+        this.pulse = pulse;
+        this.bloodGlucose = bloodGlucose;
+        this.bmi = bmi;
+        this.albumin = albumin;
     }
+
+
 }
 

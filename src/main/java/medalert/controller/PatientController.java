@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import medalert.model.Patient;
 import medalert.service.PatientService;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,24 +35,43 @@ public class PatientController {
     }
 
     @PostMapping("/add-patient")
-    public String addPatient(@RequestParam String lastname, @RequestParam String name, @RequestParam String birthday, @RequestParam String mail,HttpSession session){
+    public String addPatient(@RequestParam String lastname,
+                             @RequestParam String name,
+                             @RequestParam String birthday,
+                             @RequestParam String mail,
+                             HttpSession session,
+                             RedirectAttributes redirectAttributes){
         Patient addedPatient = null;
+        Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        if (admin == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            return "redirect:/login";
+        }
+        String status=admin.getStatus();
+
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             birthday = birthday.replace("T"," ");
             Date formattedDate = formatter.parse(birthday);
-            Admin admin = (Admin) session.getAttribute("loggedAdmin");
             Integer adminid = admin.getAdminid();
             String service = admin.getSpeciality();
             Patient registeredPatient= new Patient(lastname,name,formattedDate,service,mail,adminid);
             addedPatient = patientService.addPatient(registeredPatient);
         } catch (ParseException e) {
             e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "Format de date invalide.");
+            return "redirect:/Front/admin/AjoutPatient";
         }
         if (addedPatient != null) {
             return "redirect:/admin/patients";
         } else {
-            return "redirect:/admin/AjoutPatient";
+            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de l'ajout du patient.");
+            if (status=="Médecin"){
+                return "redirect:/admin/add-patient-doctor";
+            } else {
+                return "redirect:/admin/add-patient-nurse";
+            }
+
         }
     }
 
