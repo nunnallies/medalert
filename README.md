@@ -1,5 +1,5 @@
 
-Medalert
+Medalert ![Status](https://img.shields.io/badge/status-WIP-yellow)
 
 Projet dans le cadre d'une candidature pour un poste de developpeuse java sur la plateforme MEDITWIN. 
 
@@ -14,8 +14,8 @@ Fonctionnalités :
 - Ecriture dans une BDD locale
 - Connexion Admin
 - Visualisation de l'ensemble des patients
-- Gestion des cookies et sessions (A faire) 
-- Ajout de suivi constantes( A faire)
+- Gestion des cookies et sessions 
+- Ajout de suivi constantes(A faire)
 - Ajout de Rapport (A faire) 
 - Ajout de graphe d'évolution des constantes ( A faire )
 
@@ -32,6 +32,6 @@ Les vitalSigns sont mesurées par un seul admin qui peut être différent de cel
 
 ![image](https://github.com/user-attachments/assets/318930d2-fd7c-4d08-b0da-bd5d2400bc12)
 
-En cours de développement. 
+En cours de développement. Le front est rudimentaire pour l'instant mais sera amélioré lorsque le back-end sera finalisé/bien avancé. 
 
 TBD.
