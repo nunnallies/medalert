@@ -5,7 +5,7 @@ Projet dans le cadre d'une candidature pour un poste de developpeuse java sur la
 
 Plateforme de gestion des patients avec suivi des constantes, et système d'alertes en fonction des évolutions des constantes. 
 
-Languages : Java , HTML , CSS 
+Languages : Java , HTML , CSS, Javascript
 Dépendances : Spring-boot
 
 Fonctionnalités : 
