@@ -45,7 +45,7 @@ public class PatientController {
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
         if (admin == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
-            return "redirect:/login";
+            return "redirect:/connexion";
         }
         String status=admin.getStatus();
 
@@ -86,26 +86,43 @@ public class PatientController {
     }
 
     @GetMapping("/patients-from-service")
-    public String showPatientsFromMyService(Model model, HttpSession session) {
+    public String showPatientsFromMyService(Model model,
+                                            HttpSession session,
+                                            RedirectAttributes redirectAttributes) {
+
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        if (admin == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            return "redirect:/connexion";
+        }
         String service = admin.getSpeciality();
+
+        System.out.print("Le service est : "+ service);
         List<Patient> patients = patientService.findPatientsByService(service);
+        System.out.print("Les patients sont : "+patients);
         if (patients == null) {
             return "redirect:/admin/patients";
         }
-        model.addAttribute("patient", patients);
-        return "Front/admin/patient-details";
+        model.addAttribute("patients", patients);
+        return "Front/admin/patients-from-service";
     }
 
     @GetMapping("/my-patients")
-    public String showMyPatients(Model model, HttpSession session) {
+    public String showMyPatients(Model model,
+                                 HttpSession session,
+                                 RedirectAttributes redirectAttributes) {
+
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        if (admin == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            return "redirect:/connexion";
+        }
         Integer adminid = admin.getAdminid();
         List<Patient> patients = patientService.findPatientsByAdmin(adminid);
         if (patients == null) {
             return "redirect:/admin/patients";
         }
-        model.addAttribute("patient", patients);
+        model.addAttribute("patients", patients);
         return "Front/admin/my-patients";
     }
 

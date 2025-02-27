@@ -21,10 +21,15 @@ public class VitalSigns {
     @Column(name = "datemesure")
     private Date measurementdate;
     private float temperature;
+    @Column(name = "SpO2")
     private float SpO2;
+    @Column(name = "pouls")
     private float pulse;
+    @Column(name = "glycemie")
     private float bloodGlucose;
+    @Column(name = "imc")
     private float bmi;
+    @Column(name = "albumine")
     private float albumin;
     private Integer adminid;
     public VitalSigns() {}

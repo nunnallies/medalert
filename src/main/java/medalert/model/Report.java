@@ -14,16 +14,18 @@ public class Report {
     private Integer idrapport;
     private Integer patientid;
     private Integer adminid;
-    private Date daterapport;
-    private String nomfichier;
-    private String lien;
+    @Column(name = "daterapport")
+    private Date reportdate;
+    private String type;
+    @Column(name = "commentaire")
+    private String content;
 
     public Report() {}
-    public Report(int patientid, int adminid, Date daterapport, String nomfichier, String lien) {
+    public Report(int patientid, int adminid, Date reportdate, String type, String content) {
         this.patientid = patientid;
         this.adminid = adminid;
-        this.daterapport = daterapport;
-        this.nomfichier = nomfichier;
-        this.lien = lien;
+        this.reportdate = reportdate;
+        this.type = type;
+        this.content = content;
     }
 }

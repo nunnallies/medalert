@@ -5,7 +5,9 @@
     <title>Détails du Patient</title>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -22,63 +24,95 @@
 
     <ul class="nav nav-tabs" id="patientTabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#constantes">Constantes</a>
+            <a class="nav-link active" data-bs-toggle="tab"  data-bs-target="#constantes" href="#constantes">Constantes</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#ajout-constantes">Ajouter une constante</a>
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#ajout-constantes" href="#ajout-constantes">Ajouter des constantes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#rapport" href="#rapport">Rapports</a>
         </li>
     </ul>
 
     <div class="tab-content mt-3">
-        <div id="constantes" class="tab-pane fade">
+        <div id="constantes" class="tab-pane fade active show">
+            <div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggleTemp" checked>
+                <label class="form-check-label" for="toggleTemp">Température</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="togglePulse" checked>
+                <label class="form-check-label" for="togglePulse">Pouls</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggleSpO2" checked>
+                <label class="form-check-label" for="toggleSpO2">SpO2</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggleGlycemia" checked>
+                <label class="form-check-label" for="toggleGlycemia">Glycémie</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggleBmi" checked>
+                <label class="form-check-label" for="toggleBmi">IMC</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="toggleAlbumin" checked>
+                <label class="form-check-label" for="toggleAlbumin">Albumine</label>
+            </div>
+
+            </div>
+            <canvas id="chartVitalSigns"></canvas>
 
         </div>
         <div id="ajout-constantes" class="tab-pane fade">
             <h3>Ajouter une mesure</h3>
-            <form action="" method="post">
+            <form action="http://localhost:8080/admin/patient/vital-signs/add" method="post">
                 <div>
-                    <label for="MeasureDate">Date de naissance :</label>
+                    <label for="MeasureDate">Date de mesure :</label>
                     <input type="datetime-local" id="measureDate" name="measureDate">
                 </div>
 
                 <div class="input-groupA">
                     <label>Température : </label>
-                    <input type="number" name="temperature" >
+                    <input type="number" step="any" name="temperature" >
                 </div>
 
                 <div class="input-groupA">
                     <label>Pouls: </label>
-                    <input type="number" name="pulse" >
+                    <input type="number" step="any" name="pulse" >
                 </div>
 
                 <div class="input-groupA">
                     <label>Saturation en Oxygène : </label>
-                    <input type="number" name="SpO2" >
+                    <input type="number" step="any" name="SpO2" >
                 </div>
 
                 <div class="input-groupA">
                     <label>Glycémie : </label>
-                    <input type="number" name="bloodGlucose" >
+                    <input type="number" step="any" name="bloodGlucose" >
                 </div>
 
                 <div class="input-groupA">
                     <label>Indice de masse corpulaire : </label>
-                    <input type="number" name="bmi" >
+                    <input type="number" step="any" name="bmi" >
                 </div>
 
                 <div class="input-groupA">
                     <label>Concentration en albumine  : </label>
-                    <input type="number" name="albumin" >
+                    <input type="number" step="any" name="albumin" >
                 </div>
                 <div class="input-groupA">
                     <label>Patient</label>
-                    <select name="service" class="liste">
+                    <select name="patientid" class="liste">
                         <option th:value="${patient.patientid}" th:text="${patient.lastname}"></option>
 
                     </select>
                 </div>
-
-
+                <div class="input-groupA">
+                    <button type="submit" name="Add" class="btnA">Ajouter</button>
+                </div>
             </form>
             <div id="message">
                 <div th:if="${successMessage}" class="alert alert-success" role="alert">
@@ -89,9 +123,15 @@
                 </div>
             </div>
         </div>
+        <div id="rapport"  class="tab-pane fade">
+
+        </div>
     </div>
 
     <a href="/admin/patients" class="btn btn-secondary mt-3">Retour à la liste des patients</a>
 </div>
+
+<script src="/js/chart.js" defer></script>
+
 </body>
 </html>

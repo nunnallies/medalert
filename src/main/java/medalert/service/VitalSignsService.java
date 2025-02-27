@@ -4,6 +4,7 @@ import java.util.Optional;
 import lombok.Data;
 
 import medalert.model.VitalSigns;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import medalert.repository.VitalSignsRepository;
 
@@ -12,7 +13,7 @@ import medalert.repository.VitalSignsRepository;
 @Service
 public class VitalSignsService {
 
-
+    @Autowired
     private VitalSignsRepository VitalSignsRepository;
 
     public Optional<VitalSigns> getConstantes(final Integer id){

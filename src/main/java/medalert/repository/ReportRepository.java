@@ -10,4 +10,5 @@ public interface ReportRepository extends CrudRepository<Report,Integer>{
 
      List<Report> findByadminid(Integer adminid);
      List<Report> findBypatientid(Integer patientid);
+     List<Report> findBytype(String type);
 }
