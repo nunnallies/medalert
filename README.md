@@ -15,9 +15,11 @@ Fonctionnalités :
 - Connexion Admin
 - Visualisation de l'ensemble des patients
 - Gestion des cookies et sessions 
-- Ajout de suivi constantes(A faire)
+- Ajout de suivi constantes
 - Ajout de Rapport (A faire) 
-- Ajout de graphe d'évolution des constantes ( A faire )
+- Docker file (A faire)
+- Oauth (A faire)
+- Rédaction de tests unitaires (A faire)
 
 Logique de la base de données relationnelle : 
 
