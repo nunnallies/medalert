@@ -1,6 +1,8 @@
 package medalert.controller;
 import jakarta.servlet.http.HttpSession;
 import medalert.model.Admin;
+import medalert.model.Report;
+import medalert.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +13,6 @@ import medalert.model.Patient;
 import medalert.service.PatientService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +83,9 @@ public class PatientController {
             return "redirect:/admin/patients";
         }
         model.addAttribute("patient", patient.get());
+//        ReportService reportService = new ReportService();
+//        List<Report> patientsReports= reportService.findReportsByPatient(patientId);
+//        model.addAttribute("patientsReports", patientsReports);
         return "Front/admin/patient-details";
     }
 
