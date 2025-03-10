@@ -17,7 +17,7 @@ Fonctionnalités :
 - Gestion des cookies et sessions 
 - Ajout de suivi constantes
 - Ajout de Rapport (A faire) 
-- Docker file (A faire)
+- Docker file 
 - Oauth (A faire)
 - Rédaction de tests unitaires (A faire)
 
