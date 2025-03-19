@@ -12,35 +12,35 @@ import java.util.Optional;
 public class ReportService {
 
     @Autowired
-    private ReportRepository ReportRepository;
+    private ReportRepository reportRepository;
 
     public Optional<Report> getReport(final int id){
-        return ReportRepository.findById(id);
+        return reportRepository.findById(id);
     }
 
     public Iterable<Report> getAllReports(){
-        return ReportRepository.findAll();
+        return reportRepository.findAll();
     }
 
     public void deleteReport(final int id){
-        ReportRepository.deleteById(id);
+        reportRepository.deleteById(id);
     }
 
-    public Report addRport(final Report report){
-        Report savedreport = ReportRepository.save(report);
-        return ReportRepository.save(report);
+    public Report addReport(final Report report){
+        Report savedreport = reportRepository.save(report);
+        return reportRepository.save(report);
     }
 
     public List<Report> findReportsByAdmin(Integer adminid){
-        return ((List<Report>) ReportRepository.findByadminid(adminid));
+        return ((List<Report>) reportRepository.findByadminid(adminid));
     }
 
     public List<Report> findReportsByPatient(Integer patientid){
-        return ((List<Report>) ReportRepository.findBypatientid(patientid));
+        return ((List<Report>) reportRepository.findBypatientid(patientid));
     }
 
-    public List<Report> findRapportsByType(String type){
-        return ((List<Report>) ReportRepository.findBytype(type));
+    public List<Report> findReportsByType(String type){
+        return ((List<Report>) reportRepository.findBytype(type));
     }
 
 }

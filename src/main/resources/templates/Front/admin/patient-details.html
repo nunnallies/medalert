@@ -124,6 +124,27 @@
             </div>
         </div>
         <div id="rapport"  class="tab-pane fade">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Âge : </th>
+                    <th>Consulter</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="report : ${patientsReports}">
+                    <td th:text="${report.reportdate}"></td>
+                    <td th:text="${report.adminid}"></td>
+                    <td th:text="${report.name}"></td>
+                    <td th:text="${patient.birthday}"></td>
+                    <td><a th:href="@{/admin/patient-details(id=${patient.patientid})}">Consulter</td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>

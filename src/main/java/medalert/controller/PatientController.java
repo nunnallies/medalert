@@ -26,6 +26,10 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
+    @Autowired
+    private ReportService reportService;
+
+
     @GetMapping("/patients")
     public String showPatients(Model model) {
 
@@ -83,9 +87,8 @@ public class PatientController {
             return "redirect:/admin/patients";
         }
         model.addAttribute("patient", patient.get());
-//        ReportService reportService = new ReportService();
-//        List<Report> patientsReports= reportService.findReportsByPatient(patientId);
-//        model.addAttribute("patientsReports", patientsReports);
+        List<Report> patientsReports= reportService.findReportsByPatient(patientId);
+        model.addAttribute("patientsReports", patientsReports);
         return "Front/admin/patient-details";
     }
 
