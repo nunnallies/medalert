@@ -29,7 +29,6 @@ public class PatientService {
     }
 
     public Patient addPatient(final Patient patient){
-        Patient savedpatient = patientRepository.save(patient);
         return patientRepository.save(patient);
     }
 

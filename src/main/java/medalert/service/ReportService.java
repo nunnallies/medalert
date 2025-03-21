@@ -27,7 +27,6 @@ public class ReportService {
     }
 
     public Report addReport(final Report report){
-        Report savedreport = reportRepository.save(report);
         return reportRepository.save(report);
     }
 

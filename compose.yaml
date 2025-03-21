@@ -1,0 +1,43 @@
+
+services:
+  mysql-db:
+    build:
+      context: ./docker_db
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: medalert
+    ports:
+      - "3307:3306"
+    networks:
+      - medalert-network
+    volumes:
+      - ./docker_db/mysql_data:/var/lib/mysql
+      - ./docker_db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+  medalert-app:
+    build:
+      context: .
+      dockerfile: docker_app/Dockerfile
+    container_name: medalert-app
+    restart: always
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/medalert?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - medalert-network
+networks:
+    medalert-network : {}
