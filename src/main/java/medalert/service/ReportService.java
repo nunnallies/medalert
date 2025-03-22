@@ -1,5 +1,6 @@
 package medalert.service;
 import lombok.Data;
+import medalert.model.Patient;
 import medalert.model.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class ReportService {
         return reportRepository.findById(id);
     }
 
-    public Iterable<Report> getAllReports(){
-        return reportRepository.findAll();
+    public List<Report> getAllReports(){
+        return (List<Report>) reportRepository.findAll();
     }
 
     public void deleteReport(final int id){

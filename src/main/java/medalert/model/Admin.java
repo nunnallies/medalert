@@ -3,6 +3,8 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 
 @Setter @Getter
 @Entity
@@ -29,6 +31,24 @@ public class Admin {
         this.status = status;
         this.speciality = speciality;
         this.identifiant = identifiant;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Admin admin = (Admin) o;
+        return adminid == admin.adminid &&
+                Objects.equals(name, admin.name) &&
+                Objects.equals(password, admin.password) &&
+                Objects.equals(status, admin.status) &&
+                Objects.equals(speciality, admin.speciality) &&
+                Objects.equals(identifiant, admin.identifiant);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(adminid, name, password, status, speciality, identifiant);
     }
 
 

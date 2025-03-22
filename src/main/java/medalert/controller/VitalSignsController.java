@@ -23,7 +23,7 @@ public class VitalSignsController {
     @GetMapping("/vital-signs/{patientId}")
     @ResponseBody
     public List<Map<String, Object>> getVitalSignsFromPatient(@PathVariable int patientId) {
-        List<VitalSigns> PatientVitalSigns = vitalSignsService.findConstantesByPatient(patientId);
+        List<VitalSigns> PatientVitalSigns = vitalSignsService.findVitalsSignByPatient(patientId);
         List<Map<String, Object>> result = new ArrayList<>();
 
         for (VitalSigns v : PatientVitalSigns) {
@@ -68,7 +68,7 @@ public class VitalSignsController {
 
             Integer adminid = admin.getAdminid();
             VitalSigns vitalSigns = new VitalSigns(adminid,patientid,formattedDate,temperature,SpO2,pulse,bloodGlucose,bmi,albumin);
-            addedVitalSigns = vitalSignsService.addConstantes(vitalSigns);
+            addedVitalSigns = vitalSignsService.addVitalsSigns(vitalSigns);
             
         } catch (ParseException e) {
             e.printStackTrace();

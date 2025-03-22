@@ -70,8 +70,8 @@ public class PatientServiceTest {
 
          //Assert
          assertNotNull(result,"La liste ne doit pas être nulle");
-         assertEquals(result.size(), patients.size(),"La liste doit contenir 2 patients");
-         assertEquals(result, patients,"Les patients de la liste doivent correspondre");
+         assertEquals(patients.size(),result.size(),"La liste doit contenir 2 patients");
+         assertEquals(patients,result,"Les patients de la liste doivent correspondre");
          verify(patientRepository, times(1)).findAll();
 
      }
@@ -130,7 +130,7 @@ public class PatientServiceTest {
         //Assert
         assertNotNull(result,"La liste ne peut pas être nulle");
         assertEquals(patients.size(),result.size(),"Le nombre de patient doit être identique");
-        assertEquals(result,patients,"Les patients doivent correspondre");
+        assertEquals(patients,result,"Les patients doivent correspondre");
         verify(patientRepository,times(1)).findByService(service);
 
     }

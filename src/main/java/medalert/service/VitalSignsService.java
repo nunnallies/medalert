@@ -16,28 +16,29 @@ public class VitalSignsService {
     @Autowired
     private VitalSignsRepository VitalSignsRepository;
 
-    public Optional<VitalSigns> getConstantes(final Integer id){
+    public Optional<VitalSigns> getVitalsSigns(final Integer id){
+
         return VitalSignsRepository.findById(id);
     }
 
-    public List<VitalSigns> getAllConstantes(){
+    public List<VitalSigns> getAllVitalsSigns(){
+
         return ((List<VitalSigns>) VitalSignsRepository.findAll());
     }
 
-    public void deleteConstantes(final Integer id){
+    public void deleteVitalsSigns(final Integer id){
         VitalSignsRepository.deleteById(id);
     }
 
-    public VitalSigns addConstantes(final VitalSigns vitalSigns){
-        VitalSigns savedconstantes = VitalSignsRepository.save(vitalSigns);
+    public VitalSigns addVitalsSigns(final VitalSigns vitalSigns){
         return VitalSignsRepository.save(vitalSigns);
     }
 
-    public List<VitalSigns> findConstantesByPatient(Integer patientid){
+    public List<VitalSigns> findVitalsSignByPatient(Integer patientid){
         return ((List<VitalSigns>) VitalSignsRepository.findBypatientid(patientid));
     }
 
-    public List<VitalSigns> findConstantessByAdmin(Integer adminid){
+    public List<VitalSigns> findVitalsSignsByAdmin(Integer adminid){
         return ((List<VitalSigns>) VitalSignsRepository.findByadminid(adminid));
     }
 }
