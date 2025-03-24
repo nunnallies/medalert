@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import medalert.model.Admin;
@@ -111,7 +112,7 @@ class AdminServiceTest {
     void testFindAdminBySpeciality_WhenNoneFound_ReturnsEmptyList(){
         //Arrange
         String speciality="Cardiologie";
-        when(adminRepository.findBySpeciality(speciality)).thenReturn(List.of());
+        when(adminRepository.findBySpeciality(speciality)).thenReturn(Collections.emptyList());
 
         //Act
         List<Admin> result =  adminService.findAdminBySpeciality(speciality);
@@ -147,7 +148,7 @@ class AdminServiceTest {
     void testFindByStatus_WhenNoneFound_ReturnsEmptyList(){
         //Arrange
         String status="Actif";
-        when(adminRepository.findByStatus(status)).thenReturn(List.of());
+        when(adminRepository.findByStatus(status)).thenReturn(Collections.emptyList());
 
         //Act
         List<Admin> result = adminService.findAdminByStatus(status);

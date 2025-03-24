@@ -33,8 +33,13 @@ public class PatientController {
     @GetMapping("/patients")
     public String showPatients(Model model) {
 
+        try{
+
         List<Patient> patients = patientService.getAllPatients();
         model.addAttribute("patients", patients);
+        } catch (Exception e) {
+            model.addAttribute("error", "Une erreur est survenue lors du chargement des patients.");
+        }
         return "Front/admin/patients";
 
     }
