@@ -6,7 +6,7 @@ Projet dans le cadre d'une candidature pour un poste de developpeuse java sur la
 Plateforme de gestion des patients avec suivi des constantes, et système d'alertes en fonction des évolutions des constantes. 
 
 Languages : Java , HTML , CSS, Javascript
-Dépendances : Spring-boot
+Dépendances : Spring-boot, Jacoco
 
 Fonctionnalités : 
 
@@ -20,6 +20,21 @@ Fonctionnalités :
 - Docker file 
 - Oauth (A faire)
 - Rédaction de tests unitaires (A faire)
+
+# Couverture du Code - Medalert
+
+Ce projet utilise **JaCoCo** pour analyser la couverture des tests.
+
+| Élément                | Instructions Manquées | Couverture Instructions | Branches Manquées | Couverture Branches | Complexité | Lignes Manquées | Méthodes Manquées | Classes Manquées |
+|------------------------|----------------------|-------------------------|-------------------|---------------------|------------|----------------|----------------|----------------|
+| **Total**             | 769 / 1 131          | 32 %                    | 90 / 106         | 15 %                | 72         | 146            | 20             | 2              |
+| **medalert.controller** | 453 / 1 515         | 3 %                     | 30 / 30          | 0 %                 | 28         | 115            | 13             | 0              |
+| **medalert.model**      | 311 / 1 188         | 37 %                    | 60 / 16          | 21 %                | 43         | 29             | 6              | 2              |
+| **medalert**           | 57 / 98             | 58 %                    | n/a              | n/a                 | 1          | 2              | 1              | 0              |
+| **medalert.service**   | 152 / 152           | 100 %                   | n/a              | n/a                 | 0          | 0              | 0              | 0              |
+
+_Créé avec JaCoCo 0.8.8.202204050719_
+
 
 Logique de la base de données relationnelle : 
 
