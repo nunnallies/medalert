@@ -1,8 +1,9 @@
 FROM mysql:8
 
+WORKDIR /database
+
 ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_DATABASE=medalert
-
 
 
 EXPOSE 3306

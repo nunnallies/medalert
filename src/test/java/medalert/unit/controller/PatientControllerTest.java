@@ -6,6 +6,7 @@ import medalert.model.Patient;
 import medalert.service.PatientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -75,11 +76,30 @@ public class PatientControllerTest {
 
     @Test
     void showPatients_WhenServiceFails_ThrowException() {
+        //Arrange
         when(patientService.getAllPatients()).thenThrow(new RuntimeException("Erreur serveur"));
 
-        assertThrows(RuntimeException.class, () -> patientController.showPatients(model));
+        //Act
+        Executable executable = () -> patientController.showPatients(model);
 
+        //Assert
+        assertThrows(RuntimeException.class, executable);
         verify(patientService, times(1)).getAllPatients();
-        verifyNoInteractions(model); // Le modèle ne doit pas être modifié en cas d'exception
+        verify(model, times(1)).addAttribute("errorMessage", "Erreur lors de la récupération des patients.");
     }
+
+    @Test
+    void testAddPatient_WhenAdminNotLoggedIn_RedirectToLoginPage(){
+        //Arrange
+        when(session.getAttribute("adminId")).thenReturn(null);
+
+        //Act
+        String result = patientController.addPatient("Dubois", "John", "1990-05-01 12:00", "john@example.com", session, redirectAttributes);
+
+
+    }
+
+
+
+
 }
