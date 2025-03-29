@@ -5,7 +5,7 @@ document.getElementById("service").addEventListener("change", function() {
     doctorDropdown.innerHTML = '<option value="">-- Sélectionnez un médecin --</option>';
 
     if (service) {
-        fetch(`/get-doctors?service=${service}`)
+        fetch(`/admin/get-doctors?service=${service}`)
             .then(response => response.json())
             .then(data => {
                 data.forEach(doctor => {
