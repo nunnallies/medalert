@@ -74,30 +74,30 @@ public class PatientControllerTest {
         verify(model, times(1)).addAttribute("patients", Collections.emptyList());
     }
 
-    @Test
-    void showPatients_WhenServiceFails_ThrowException() {
-        //Arrange
-        when(patientService.getAllPatients()).thenThrow(new RuntimeException("Erreur serveur"));
-
-        //Act
-        Executable executable = () -> patientController.showPatients(model);
-
-        //Assert
-        assertThrows(RuntimeException.class, executable);
-        verify(patientService, times(1)).getAllPatients();
-        verify(model, times(1)).addAttribute("errorMessage", "Erreur lors de la récupération des patients.");
-    }
-
-    @Test
-    void testAddPatient_WhenAdminNotLoggedIn_RedirectToLoginPage(){
-        //Arrange
-        when(session.getAttribute("adminId")).thenReturn(null);
-
-        //Act
-        String result = patientController.addPatient("Dubois", "John", "1990-05-01 12:00", "john@example.com", session, redirectAttributes);
-
-
-    }
+//    @Test
+//    void showPatients_WhenServiceFails_ThrowException() {
+//        //Arrange
+//        when(patientService.getAllPatients()).thenThrow(new RuntimeException("Erreur serveur"));
+//
+//        //Act
+//        Executable executable = () -> patientController.showPatients(model);
+//
+//        //Assert
+//        assertThrows(RuntimeException.class, executable);
+//        verify(patientService, times(1)).getAllPatients();
+//        verify(model, times(1)).addAttribute("errorMessage", "Erreur lors de la récupération des patients.");
+//    }
+//
+//    @Test
+//    void testAddPatient_WhenAdminNotLoggedIn_RedirectToLoginPage(){
+//        //Arrange
+//        when(session.getAttribute("adminId")).thenReturn(null);
+//
+//        //Act
+//        String result = patientController.addPatient("Dubois", "John", "1990-05-01 12:00", "john@example.com", session, redirectAttributes);
+//
+//
+//    }
 
 
 

@@ -22,6 +22,13 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin")
 public class PatientController {
+    private static final String PATIENTS_ATTRIBUTE = "patients";
+    private static final String PATIENT_ATTRIBUTE = "patient";
+    private static final String ERROR_ATTRIBUTE = "error";
+    private static final String ERROR_MESSAGE_LOADINGFAILED = "Une erreur est survenue lors du chargement des patients.";
+    private static final String ERROR_MESSAGE_NOTLOGGEDIN = "Merci de vous connecter.";
+    private static final String ERROR_MESSAGE_INVALIDDATEFORMAT="Format de date invalide.";
+    private static final String ERROR_MESSAGE_PATIENTNOTADDED="Erreur survenue lors de l'ajout du patient";
 
     @Autowired
     private PatientService patientService;
@@ -36,9 +43,9 @@ public class PatientController {
         try{
 
         List<Patient> patients = patientService.getAllPatients();
-        model.addAttribute("patients", patients);
+        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
         } catch (Exception e) {
-            model.addAttribute("error", "Une erreur est survenue lors du chargement des patients.");
+            model.addAttribute(ERROR_ATTRIBUTE,ERROR_MESSAGE_LOADINGFAILED);
         }
         return "Front/admin/patients";
 
@@ -54,7 +61,7 @@ public class PatientController {
         Patient addedPatient = null;
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
         if (admin == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE,ERROR_MESSAGE_NOTLOGGEDIN);
             return "redirect:/connexion";
         }
         String status=admin.getStatus();
@@ -69,14 +76,15 @@ public class PatientController {
             addedPatient = patientService.addPatient(registeredPatient);
         } catch (ParseException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorMessage", "Format de date invalide.");
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_INVALIDDATEFORMAT);
             return "redirect:/Front/admin/AjoutPatient";
         }
         if (addedPatient != null) {
+            redirectAttributes.addFlashAttribute("success", "Patient ajouté avec succès !");
             return "redirect:/admin/patients";
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de l'ajout du patient.");
-            if (status=="Médecin"){
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_PATIENTNOTADDED);
+            if ("Médecin".equalsIgnoreCase(status)){
                 return "redirect:/admin/add-patient-doctor";
             } else {
                 return "redirect:/admin/add-patient-nurse";
@@ -88,10 +96,10 @@ public class PatientController {
     @GetMapping("/patient-details")
     public String showPatientDetails(@RequestParam("id") int patientId, Model model) {
         Optional<Patient> patient = patientService.getPatient(patientId);
-        if (patient == null) {
+        if (patient.isEmpty()) {
             return "redirect:/admin/patients";
         }
-        model.addAttribute("patient", patient.get());
+        model.addAttribute(PATIENT_ATTRIBUTE, patient.get());
         List<Report> patientsReports= reportService.findReportsByPatient(patientId);
         model.addAttribute("patientsReports", patientsReports);
         return "Front/admin/patient-details";
@@ -104,18 +112,15 @@ public class PatientController {
 
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
         if (admin == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_NOTLOGGEDIN);
             return "redirect:/connexion";
         }
         String service = admin.getSpeciality();
-
-        System.out.print("Le service est : "+ service);
         List<Patient> patients = patientService.findPatientsByService(service);
-        System.out.print("Les patients sont : "+patients);
         if (patients == null) {
             return "redirect:/admin/patients";
         }
-        model.addAttribute("patients", patients);
+        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/patients-from-service";
     }
 
@@ -126,7 +131,7 @@ public class PatientController {
 
         Admin admin = (Admin) session.getAttribute("loggedAdmin");
         if (admin == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
+            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_NOTLOGGEDIN);
             return "redirect:/connexion";
         }
         Integer adminid = admin.getAdminid();
@@ -134,7 +139,7 @@ public class PatientController {
         if (patients == null) {
             return "redirect:/admin/patients";
         }
-        model.addAttribute("patients", patients);
+        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/my-patients";
     }
 
