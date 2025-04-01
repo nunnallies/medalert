@@ -19,7 +19,7 @@ Fonctionnalités :
 - Ajout de Rapport (A faire) 
 - Docker file 
 - Oauth (A faire)
-- Rédaction de tests unitaires (A faire)
+- Rédaction de tests unitaires (En cours)
 
 # Couverture du Code - Medalert
 
