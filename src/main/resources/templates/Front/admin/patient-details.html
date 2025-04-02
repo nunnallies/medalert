@@ -139,9 +139,9 @@
                 <tr th:each="report : ${patientsReports}">
                     <td th:text="${report.reportdate}"></td>
                     <td th:text="${report.adminid}"></td>
-                    <td th:text="${report.name}"></td>
-                    <td th:text="${patient.birthday}"></td>
-                    <td><a th:href="@{/admin/patient-details(id=${patient.patientid})}">Consulter</td>
+                    <td th:text="${report.type}"></td>
+                    <td th:text="${report.content}"></td>
+                    <td><a th:href="@{/admin/patient-details(id=${patient.patientid})}">Consulter</a></td>
                 </tr>
                 </tbody>
             </table>

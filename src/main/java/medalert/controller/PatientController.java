@@ -18,23 +18,24 @@ import java.util.Date;
 import java.util.List;
 import java.text.ParseException;
 import java.util.Optional;
+import medalert.constants.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 @Controller
 @RequestMapping("/admin")
 public class PatientController {
-    private static final String PATIENTS_ATTRIBUTE = "patients";
-    private static final String PATIENT_ATTRIBUTE = "patient";
-    private static final String ERROR_ATTRIBUTE = "error";
-    private static final String ERROR_MESSAGE_LOADINGFAILED = "Une erreur est survenue lors du chargement des patients.";
-    private static final String ERROR_MESSAGE_NOTLOGGEDIN = "Merci de vous connecter.";
-    private static final String ERROR_MESSAGE_INVALIDDATEFORMAT="Format de date invalide.";
-    private static final String ERROR_MESSAGE_PATIENTNOTADDED="Erreur survenue lors de l'ajout du patient";
+
 
     @Autowired
     private PatientService patientService;
 
     @Autowired
     private ReportService reportService;
+
+    private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
 
     @GetMapping("/patients")
@@ -43,63 +44,69 @@ public class PatientController {
         try{
 
         List<Patient> patients = patientService.getAllPatients();
-        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
+        model.addAttribute(Attribute.PATIENTS_ATTRIBUTE, patients);
         } catch (Exception e) {
-            model.addAttribute(ERROR_ATTRIBUTE,ERROR_MESSAGE_LOADINGFAILED);
+            model.addAttribute(Attribute.ERROR_ATTRIBUTE,Message.ERROR_MESSAGE_LOADINGFAILED);
         }
-        return "Front/admin/patients";
+        return ViewNames.VIEW_PATIENTS;
 
     }
-
     @PostMapping("/add-patient")
     public String addPatient(@RequestParam String lastname,
                              @RequestParam String name,
                              @RequestParam String birthday,
                              @RequestParam String mail,
+                             @RequestParam(required = false) String service,
+                             @RequestParam(required = false) Integer adminid,
                              HttpSession session,
                              RedirectAttributes redirectAttributes){
-        Patient addedPatient = null;
-        Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        Patient addedPatient;
+        Admin admin = (Admin) session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE);
         if (admin == null) {
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE,ERROR_MESSAGE_NOTLOGGEDIN);
-            return "redirect:/connexion";
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE,Message.ERROR_MESSAGE_NOTLOGGEDIN);
+            return Redirect.REDIRECT_CONNEXION;
         }
         String status=admin.getStatus();
+        Integer assignedAdminId = admin.getAdminid();
+        String assignedService = admin.getSpeciality();
+
+        if ("Infirmier".equalsIgnoreCase(status)) {
+            if ( service==null || service.trim().isEmpty() || adminid == null) {
+                redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FIELDSREQUIRED);
+                return "redirect:/Front/admin/AjoutPatient";
+            }
+            assignedAdminId = adminid;
+            assignedService = service;
+        }
 
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            birthday = birthday.replace("T"," ");
-            Date formattedDate = formatter.parse(birthday);
-            Integer adminid = admin.getAdminid();
-            String service = admin.getSpeciality();
-            Patient registeredPatient= new Patient(lastname,name,formattedDate,service,mail,adminid);
+            Date formattedDate = formatter.parse(birthday.replace("T"," "));
+            Patient registeredPatient = new Patient(lastname, name, formattedDate, assignedService, mail, assignedAdminId);
             addedPatient = patientService.addPatient(registeredPatient);
         } catch (ParseException e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_INVALIDDATEFORMAT);
+            logger.error("Erreur lors du parsing de la date", e);
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_INVALIDDATEFORMAT);
             return "redirect:/Front/admin/AjoutPatient";
         }
+
         if (addedPatient != null) {
             redirectAttributes.addFlashAttribute("success", "Patient ajouté avec succès !");
-            return "redirect:/admin/patients";
-        } else {
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_PATIENTNOTADDED);
-            if ("Médecin".equalsIgnoreCase(status)){
-                return "redirect:/admin/add-patient-doctor";
-            } else {
-                return "redirect:/admin/add-patient-nurse";
-            }
-
+            return Redirect.REDIRECT_PATIENTS;
         }
+
+        redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_PATIENTNOTADDED);
+        return "Médecin".equalsIgnoreCase(status) ? "redirect:/admin/add-patient-doctor" : "redirect:/admin/add-patient-nurse";
     }
+
 
     @GetMapping("/patient-details")
     public String showPatientDetails(@RequestParam("id") int patientId, Model model) {
         Optional<Patient> patient = patientService.getPatient(patientId);
         if (patient.isEmpty()) {
-            return "redirect:/admin/patients";
+            return Redirect.REDIRECT_PATIENTS;
         }
-        model.addAttribute(PATIENT_ATTRIBUTE, patient.get());
+        model.addAttribute(Attribute.PATIENT_ATTRIBUTE, patient.get());
         List<Report> patientsReports= reportService.findReportsByPatient(patientId);
         model.addAttribute("patientsReports", patientsReports);
         return "Front/admin/patient-details";
@@ -110,17 +117,17 @@ public class PatientController {
                                             HttpSession session,
                                             RedirectAttributes redirectAttributes) {
 
-        Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        Admin admin = (Admin) session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE );
         if (admin == null) {
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_NOTLOGGEDIN);
-            return "redirect:/connexion";
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_NOTLOGGEDIN);
+            return Redirect.REDIRECT_CONNEXION;
         }
         String service = admin.getSpeciality();
         List<Patient> patients = patientService.findPatientsByService(service);
         if (patients == null) {
-            return "redirect:/admin/patients";
+            return Redirect.REDIRECT_PATIENTS;
         }
-        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
+        model.addAttribute(Attribute.PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/patients-from-service";
     }
 
@@ -129,17 +136,17 @@ public class PatientController {
                                  HttpSession session,
                                  RedirectAttributes redirectAttributes) {
 
-        Admin admin = (Admin) session.getAttribute("loggedAdmin");
+        Admin admin = (Admin) session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE);
         if (admin == null) {
-            redirectAttributes.addFlashAttribute(ERROR_ATTRIBUTE, ERROR_MESSAGE_NOTLOGGEDIN);
-            return "redirect:/connexion";
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_NOTLOGGEDIN);
+            return Redirect.REDIRECT_CONNEXION;
         }
         Integer adminid = admin.getAdminid();
         List<Patient> patients = patientService.findPatientsByAdmin(adminid);
-        if (patients == null) {
-            return "redirect:/admin/patients";
+        if (patients.isEmpty()) {
+            return Redirect.REDIRECT_PATIENTS;
         }
-        model.addAttribute(PATIENTS_ATTRIBUTE, patients);
+        model.addAttribute(Attribute.PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/my-patients";
     }
 
