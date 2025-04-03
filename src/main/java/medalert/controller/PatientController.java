@@ -51,6 +51,10 @@ public class PatientController {
         return ViewNames.VIEW_PATIENTS;
 
     }
+
+    public String ReturnViewPatients(){
+        return "view";
+    }
     @PostMapping("/add-patient")
     public String addPatient(@RequestParam String lastname,
                              @RequestParam String name,
@@ -65,6 +69,10 @@ public class PatientController {
         if (admin == null) {
             redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE,Message.ERROR_MESSAGE_NOTLOGGEDIN);
             return Redirect.REDIRECT_CONNEXION;
+        }
+        if (lastname.trim().isEmpty() || name.trim().isEmpty() || mail.trim().isEmpty() || birthday.trim().isEmpty()){
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FIELDSREQUIRED);
+            return "redirect:/Front/admin/AjoutPatient";
         }
         String status=admin.getStatus();
         Integer assignedAdminId = admin.getAdminid();
@@ -149,6 +157,8 @@ public class PatientController {
         model.addAttribute(Attribute.PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/my-patients";
     }
+
+
 
 
 
