@@ -165,7 +165,7 @@ class AdminServiceTest {
         //Arrange
         String identifiant = "alice123";
         String password = "passe123";
-        Admin admin = new Admin("Alice", "passe123", "Active", "Cardiologie", "alice123");
+        Admin admin = new Admin("Alice", "passe123", "Médecin", "Cardiologie", "alice123");
         when(adminRepository.findByIdentifiantAndPassword(identifiant, password)).thenReturn(Optional.of(admin));
 
         //Act

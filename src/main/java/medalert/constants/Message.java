@@ -10,4 +10,5 @@ public class Message {
     public static final String ERROR_MESSAGE_INVALIDDATEFORMAT="Format de date invalide.";
     public static final String ERROR_MESSAGE_PATIENTNOTADDED="Erreur survenue lors de l'ajout du patient";
     public static final String ERROR_MESSAGE_FIELDSREQUIRED="Merci de remplir tout les champs.";
+    public static final String SUCCESS_MESSAGE_ADDEDPATIENT="Patient ajouté avec succès !";
 }

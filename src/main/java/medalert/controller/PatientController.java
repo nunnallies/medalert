@@ -52,8 +52,17 @@ public class PatientController {
 
     }
 
-    public String ReturnViewPatients(){
-        return "view";
+    @GetMapping("/add-patient-form")
+    public String returnViewAddPatient(HttpSession session,RedirectAttributes redirectAttributes) {
+        Admin admin = (Admin) session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE);
+        if (admin == null) {
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE,Message.ERROR_MESSAGE_NOTLOGGEDIN);
+            return Redirect.REDIRECT_CONNEXION;
+        }
+        String status=admin.getStatus();
+
+        return "Médecin".equalsIgnoreCase(status) ? ViewNames.VIEW_ADD_PATIENT_AS_DOCTOR : ViewNames.VIEW_ADD_PATIENT_AS_NURSE;
+
     }
     @PostMapping("/add-patient")
     public String addPatient(@RequestParam String lastname,
@@ -72,7 +81,7 @@ public class PatientController {
         }
         if (lastname.trim().isEmpty() || name.trim().isEmpty() || mail.trim().isEmpty() || birthday.trim().isEmpty()){
             redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FIELDSREQUIRED);
-            return "redirect:/Front/admin/AjoutPatient";
+            return Redirect.REDIRECT_ADD_PATIENT;
         }
         String status=admin.getStatus();
         Integer assignedAdminId = admin.getAdminid();
@@ -81,7 +90,7 @@ public class PatientController {
         if ("Infirmier".equalsIgnoreCase(status)) {
             if ( service==null || service.trim().isEmpty() || adminid == null) {
                 redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FIELDSREQUIRED);
-                return "redirect:/Front/admin/AjoutPatient";
+                return Redirect.REDIRECT_ADD_PATIENT;
             }
             assignedAdminId = adminid;
             assignedService = service;
@@ -95,16 +104,16 @@ public class PatientController {
         } catch (ParseException e) {
             logger.error("Erreur lors du parsing de la date", e);
             redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_INVALIDDATEFORMAT);
-            return "redirect:/Front/admin/AjoutPatient";
+            return Redirect.REDIRECT_ADD_PATIENT;
         }
 
         if (addedPatient != null) {
-            redirectAttributes.addFlashAttribute("success", "Patient ajouté avec succès !");
+            redirectAttributes.addFlashAttribute(Attribute.SUCCESS_ATTRIBUTE, Message.SUCCESS_MESSAGE_ADDEDPATIENT);
             return Redirect.REDIRECT_PATIENTS;
         }
 
         redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_PATIENTNOTADDED);
-        return "Médecin".equalsIgnoreCase(status) ? "redirect:/admin/add-patient-doctor" : "redirect:/admin/add-patient-nurse";
+        return Redirect.REDIRECT_ADD_PATIENT;
     }
 
 
@@ -117,7 +126,7 @@ public class PatientController {
         model.addAttribute(Attribute.PATIENT_ATTRIBUTE, patient.get());
         List<Report> patientsReports= reportService.findReportsByPatient(patientId);
         model.addAttribute("patientsReports", patientsReports);
-        return "Front/admin/patient-details";
+        return ViewNames.VIEW_PATIENT;
     }
 
     @GetMapping("/patients-from-service")
@@ -157,6 +166,8 @@ public class PatientController {
         model.addAttribute(Attribute.PATIENTS_ATTRIBUTE, patients);
         return "Front/admin/my-patients";
     }
+
+
 
 
 
