@@ -27,13 +27,12 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 
 ## Résumé de la Couverture de Code
 
-| **Package**             | **Lignes Totales** | **Couverture (%)** | **Instructions Manquantes** | **Branches Manquantes** | **Lignes Manquantes** | **Méthodes Manquantes** | **Classes Manquantes** | **Complexité Manquante** |
-|-------------------------|--------------------|--------------------|----------------------------|-------------------------|-----------------------|------------------------|------------------------|--------------------------|
-| **Total**               | 1,213              | 49%                | 612                        | 78                      | 63                    | 132                    | 100                    | 257                      |
-| **medalert.model**      | 311,188            | 37%                | 6,016                      | 43                      | 56                    | 29                     | 81                     | 6                        |
-| **medalert.controller** | 296,254            | 46%                | 1,830                      | 19                      | 45                    | 69                     | 136                    | 10                       |
-| **medalert**            | 57                 | 58%                | N/A                        | 1                       | 3                     | 2                      | 5                      | 1                        |
-| **medalert.service**    | 152                | 100%               | N/A                        | 0                       | 28                    | 0                      | 35                     | 0                        |
+| **Élément**              | **Instructions Manquantes** | **Couverture des Instructions (%)** | **Branches Manquantes** | **Couverture des Branches (%)** | **Méthodes Manquantes** | **Couverture des Méthodes** | **Lignes Manquantes** | **Couverture des Lignes** | **Classes Manquantes** | **Couverture des Classes** |
+|--------------------------|-----------------------------|-------------------------------------|--------------------------|---------------------------------|-------------------------|----------------------------|------------------------|---------------------------|------------------------|---------------------------|
+| **medalert.model**        | 311 / 188                   | 37%                                 | 60 / 16                  | 21%                             | 43                      | 56%                        | 29                     | 81%                       | 6                      | 6%                        |
+| **medalert.controller**   | 296 / 254                   | 46%                                 | 18 / 30                  | 62%                             | 19                      | 45%                        | 69                     | 136%                      | 10                     | 5%                        |
+| **medalert**              | 5 / 7                       | 58%                                 | n/a                      | n/a                             | 1                       | 3%                         | 2                      | 5%                        | 1                      | 1%                        |
+| **medalert.service**      | 152 / 0                     | 100%                                | n/a                      | n/a                             | 0                       | 28%                        | 0                      | 0%                        | 0                      | 4%                        |
 
 ## Explications
 
