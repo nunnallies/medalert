@@ -33,6 +33,7 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 | **medalert.controller**   | 296 / 254                   | 46%                                 | 18 / 30                  | 62%                             | 19                      | 45%                        | 69                     | 136%                      | 10                     | 5%                        |
 | **medalert**              | 5 / 7                       | 58%                                 | n/a                      | n/a                             | 1                       | 3%                         | 2                      | 5%                        | 1                      | 1%                        |
 | **medalert.service**      | 152 / 0                     | 100%                                | n/a                      | n/a                             | 0                       | 28%                        | 0                      | 0%                        | 0                      | 4%                        |
+| **Total**                | **612 / 1,213**             | **49%**                             | **78 / 124**             | **37%**                         | **63**                  | **132**                    | **100**                | **257**                   | **17**                 | **70**                    |
 
 ## Explications
 
