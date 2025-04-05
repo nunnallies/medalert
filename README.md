@@ -23,18 +23,29 @@ Fonctionnalités :
 
 # Couverture du Code - Medalert
 
-Ce projet utilise **JaCoCo** pour analyser la couverture des tests.
+Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du code source. Ce tableau présente la couverture actuelle et les domaines où des améliorations sont possibles. L'objectif est d'assurer que notre code est suffisamment testé et robuste pour une utilisation en production.
 
-| Élément                | Instructions Manquées | Couverture Instructions | Branches Manquées/Réalisées | Couverture Branches | Complexité | Lignes Manquées | Méthodes Manquées | Classes Manquées |
-|------------------------|----------------------|-------------------------|-------------------|---------------------|------------|----------------|----------------|----------------|
-| **Total**             | 769 / 1 131          | 32 %                    | 90 / 106         | 15 %                | 72         | 146            | 20             | 2              |
-| **medalert.controller** | 453 / 1 515         | 3 %                     | 30 / 0          | 0 %                 | 28         | 115            | 13             | 0              |
-| **medalert.model**      | 311 / 1 188         | 37 %                    | 60 / 16          | 21 %                | 43         | 29             | 6              | 2              |
-| **medalert**           | 57 / 98             | 58 %                    | n/a              | n/a                 | 1          | 2              | 1              | 0              |
-| **medalert.service**   | 152 / 152           | 100 %                   | n/a              | n/a                 | 0          | 0              | 0              | 0              |
+## Résumé de la Couverture de Code
 
-_Créé avec JaCoCo 0.8.8.202204050719_
+| **Package**             | **Lignes Totales** | **Couverture (%)** | **Instructions Manquantes** | **Branches Manquantes** | **Lignes Manquantes** | **Méthodes Manquantes** | **Classes Manquantes** | **Complexité Manquante** |
+|-------------------------|--------------------|--------------------|----------------------------|-------------------------|-----------------------|------------------------|------------------------|--------------------------|
+| **Total**               | 1,213              | 49%                | 612                        | 78                      | 63                    | 132                    | 100                    | 257                      |
+| **medalert.model**      | 311,188            | 37%                | 6,016                      | 43                      | 56                    | 29                     | 81                     | 6                        |
+| **medalert.controller** | 296,254            | 46%                | 1,830                      | 19                      | 45                    | 69                     | 136                    | 10                       |
+| **medalert**            | 57                 | 58%                | N/A                        | 1                       | 3                     | 2                      | 5                      | 1                        |
+| **medalert.service**    | 152                | 100%               | N/A                        | 0                       | 28                    | 0                      | 35                     | 0                        |
 
+## Explications
+
+- **Lignes Totales** : Nombre total de lignes de code dans le package.
+- **Couverture (%)** : Pourcentage de lignes couvertes par des tests automatisés.
+- **Instructions Manquantes** : Nombre d'instructions non couvertes.
+- **Branches Manquantes** : Nombre de branches de code (comme les conditions) non couvertes.
+- **Lignes Manquantes** : Nombre total de lignes non couvertes par les tests.
+- **Méthodes Manquantes** : Nombre de méthodes non couvertes par les tests.
+- **Classes Manquantes** : Nombre de classes non couvertes par les tests.
+- **Complexité Manquante** : Nombre de points de complexité cyclomatique non couverts.
+  
 # Base de donnée - SQL
 Logique de la base de données relationnelle : 
 
