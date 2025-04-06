@@ -45,6 +45,10 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 - **Méthodes Manquantes** : Nombre de méthodes non couvertes par les tests.
 - **Classes Manquantes** : Nombre de classes non couvertes par les tests.
 - **Complexité Manquante** : Nombre de points de complexité cyclomatique non couverts.
+
+##Objectif 
+
+Couverture du code > 80%
   
 # Base de donnée - SQL
 Logique de la base de données relationnelle : 
