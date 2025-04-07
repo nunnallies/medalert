@@ -1,6 +1,10 @@
 package medalert.controller;
 
 import jakarta.servlet.http.HttpSession;
+import medalert.constants.Attribute;
+import medalert.constants.Message;
+import medalert.constants.Redirect;
+import medalert.constants.ViewNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import medalert.service.AdminService;
 import java.util.List;
 import java.util.Optional;
 import medalert.model.Admin;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,9 +29,9 @@ public class AdminController {
     @GetMapping("/login")
     public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
-            model.addAttribute("errorMessage", "Identifiants incorrects. Veuillez réessayer.");
+            model.addAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FAILEDTOLOGIN);
         }
-        return "Front/connexion";
+        return ViewNames.VIEW_LOGIN;
     }
 
     @PostMapping("/login")
@@ -35,33 +40,20 @@ public class AdminController {
 
         if (adminOptional.isPresent()) {
             Admin admin = adminOptional.get();
-            session.setAttribute("loggedAdmin", admin);
-            return "Front/AccueilMedecin";
+            session.setAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE, admin);
+            return ViewNames.VIEW_DOCTOR_HOMEPAGE;
         } else {
-            model.addAttribute("errorMessage", "Identifiants incorrects. Veuillez réessayer.");
-            return "Front/connexion";  // Reste sur la même page en affichant l'erreur
+            model.addAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FAILEDTOLOGIN);
+            return ViewNames.VIEW_LOGIN;
         }
     }
 
-    @GetMapping("/AjoutPatient")
-    public String ShowPatientRegistrationForm(HttpSession session) {
-
-        if (session == null){
-            return "redirect:/login";
-        }
-        Admin admin = (Admin) session.getAttribute("loggedAdmin");
-        if (admin.getStatus() == "Médecin") {
-            return "Front/admin/add-patient-doctor";
-        } else {
-            return "Front/admin/add-patient-nurse";
-        }
-    }
 
     @GetMapping("/admins")
     public String showAdmins(Model model) {
 
         List<Admin> admins = adminService.getAllAdmins();
-        model.addAttribute("admins", admins);
+        model.addAttribute(Attribute.ADMINS_ATTRIBUTE, admins);
         return "Front/admin/admins";
 
     }

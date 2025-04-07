@@ -329,7 +329,7 @@ public class PatientControllerTest {
         when(patientService.getPatient(patientId)).thenReturn(Optional.empty());
 
         // Act
-        String result = patientController.showPatientDetails(patientId, mock(Model.class));
+        String result = patientController.showPatientDetails(patientId,model);
 
         // Assert
         assertEquals(Redirect.REDIRECT_PATIENTS, result);
@@ -358,7 +358,6 @@ public class PatientControllerTest {
     void testShowPatientsFromMyService_WhenNotLoggedIn_ReturnsLoginPage() {
         // Arrange
         when(session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE)).thenReturn(null);
-        RedirectAttributes redirectAttributes = mock(RedirectAttributes.class);
 
         // Act
         String result = patientController.showPatientsFromMyService(model, session, redirectAttributes);

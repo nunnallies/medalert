@@ -7,4 +7,6 @@ public class ViewNames {
     public static final String VIEW_PATIENT = "Front/admin/patient-details";
     public static final String VIEW_ADD_PATIENT_AS_DOCTOR ="/Front/admin/add-patient-doctor";
     public static final String VIEW_ADD_PATIENT_AS_NURSE ="/Front/admin/add-patient-nurse";
+    public static final String VIEW_LOGIN ="/Front/Connexion";
+    public static final String VIEW_DOCTOR_HOMEPAGE="Front/AccueilMedecin";
 }
