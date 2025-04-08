@@ -46,7 +46,7 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 - **Classes Manquantes** : Nombre de classes non couvertes par les tests.
 - **Complexité Manquante** : Nombre de points de complexité cyclomatique non couverts.
 
-##Objectif 
+## Objectif 
 
 Couverture du code > 80%
   
