@@ -1,5 +1,8 @@
 package medalert.controller;
 import jakarta.servlet.http.HttpSession;
+import medalert.constants.Attribute;
+import medalert.constants.Message;
+import medalert.constants.Redirect;
 import medalert.model.Admin;
 import medalert.service.VitalSignsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +63,10 @@ public class VitalSignsController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             measureDate = measureDate.replace("T"," ");
             Date formattedDate = formatter.parse(measureDate);
-            Admin admin = (Admin) session.getAttribute("loggedAdmin");
+            Admin admin = (Admin) session.getAttribute(Attribute.LOGGEDADMIN_ATTRIBUTE);
             if (admin == null) {
-                redirectAttributes.addFlashAttribute("errorMessage", "Merci de vous connecter.");
-                return "redirect:/connexion";
+                redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_NOTLOGGEDIN);
+                return Redirect.REDIRECT_CONNEXION;
             }
 
             Integer adminid = admin.getAdminid();
@@ -72,17 +75,17 @@ public class VitalSignsController {
             
         } catch (ParseException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorMessage", "Format de date invalide.");
-            return "redirect:/admin/patient-details?id=" + patientid + "#ajout-constantes";
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_INVALIDDATEFORMAT);
+            return Redirect.REDIRECT_PATIENT_DETAILS + patientid + Redirect.ANCHOR_AJOUT_CONSTANTES;
         }
 
         if ( addedVitalSigns != null ){
-            redirectAttributes.addFlashAttribute("successMessage", "Constantes ajoutées avec succès.");
-            return "redirect:/admin/patient-details?id="+patientid+"#ajout-constantes";
+            redirectAttributes.addFlashAttribute(Attribute.SUCCESS_ATTRIBUTE, Message.SUCESS_MESSSAGE_ADDEDVITALSIGN);
+            return Redirect.REDIRECT_PATIENT_DETAILS + patientid+ Redirect.ANCHOR_AJOUT_CONSTANTES;
 
         }else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Erreur lors de l'ajout des constantes.");
-            return "redirect:/admin/patient-details?id=" + patientid + "#ajout-constantes";
+            redirectAttributes.addFlashAttribute(Attribute.ERROR_ATTRIBUTE, Message.ERROR_MESSAGE_FAILEDTOADDVITALSSIGNS);
+            return Redirect.REDIRECT_PATIENT_DETAILS + patientid + Redirect.ANCHOR_AJOUT_CONSTANTES;
         }
         
     }
