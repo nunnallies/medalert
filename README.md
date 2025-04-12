@@ -51,7 +51,7 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 Couverture du code > 80%
   
 # Base de donnée - SQL
-Logique de la base de données relationnelle : 
+Logique de la base de données relationnelle actuelle : 
 
 
 
