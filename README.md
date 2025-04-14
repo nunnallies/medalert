@@ -48,7 +48,7 @@ Ce projet utilise JaCoCo pour mesurer la couverture des tests automatisés du co
 
 ## Objectif 
 
-Couverture du code > 80%
+Couverture du code >= 80%
   
 # Base de donnée - SQL
 Logique de la base de données relationnelle actuelle : 
